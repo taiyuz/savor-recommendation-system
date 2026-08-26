@@ -32,6 +32,13 @@ def _read_csv(path: Path) -> pl.DataFrame:
     return pl.read_csv(path)
 
 
+def _read_interactions(directory: Path) -> pl.DataFrame:
+    parts = sorted(directory.glob("interactions_part*.csv"))
+    if parts:
+        return pl.concat([_read_csv(path) for path in parts], how="vertical")
+    return _read_csv(directory / "interactions.csv")
+
+
 def _validate_users(frame: pl.DataFrame) -> None:
     for row in frame.iter_rows(named=True):
         UserRecord.model_validate(row)
@@ -53,7 +60,7 @@ def load_catalog(data_dir: Path | None = None, *, validate: bool = True) -> Cata
     directory = data_dir or resolve_data_dir()
     users = _read_csv(directory / "users.csv")
     items = _read_csv(directory / "items.csv")
-    interactions = _read_csv(directory / "interactions.csv")
+    interactions = _read_interactions(directory)
     interactions = interactions.with_columns(
         pl.col("timestamp").str.to_datetime(time_zone="UTC"),
         pl.col("rating").cast(pl.Float64),
