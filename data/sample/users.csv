@@ -1,0 +1,221 @@
+user_id,neighborhood,age_band,cuisine_prefs,price_pref,dietary
+u0001,Downtown,55+,Caribbean|Pizza,3,none
+u0002,South Side,45-54,Mediterranean,1,none
+u0003,Oakland,45-54,Cafe,2,none
+u0004,Shadyside,18-24,Thai,1,vegetarian
+u0005,Highland Park,45-54,American,2,vegetarian
+u0006,Bloomfield,45-54,Spanish,4,none
+u0007,Highland Park,45-54,Pizza,1,vegetarian
+u0008,Strip District,25-34,Belgian,3,none
+u0009,Oakland,35-44,Argentinian|Korean,2,none
+u0010,Strip District,55+,Caribbean,3,vegetarian
+u0011,Downtown,45-54,American|Argentinian,3,none
+u0012,Squirrel Hill,25-34,Belgian,4,none
+u0013,Bloomfield,35-44,Indian|Japanese,1,vegetarian
+u0014,East Liberty,35-44,Thai,3,none
+u0015,Oakland,18-24,Mediterranean,2,gluten_free
+u0016,Strip District,18-24,Diner|Thai,2,none
+u0017,South Side,35-44,Caribbean,3,none
+u0018,Highland Park,35-44,BBQ|Diner,2,none
+u0019,Oakland,25-34,American|Caribbean,2,none
+u0020,South Side,35-44,Japanese,3,vegetarian
+u0021,Shadyside,25-34,Cafe|Caribbean,3,none
+u0022,Highland Park,45-54,Chinese|Vegan,4,vegan
+u0023,Bloomfield,25-34,Italian|Mexican,3,vegan
+u0024,Downtown,18-24,Italian,3,none
+u0025,East Liberty,18-24,Argentinian|Vegan,2,none
+u0026,Point Breeze,45-54,Pizza,3,none
+u0027,North Shore,35-44,Diner,1,none
+u0028,Strip District,45-54,Chinese|Italian,2,gluten_free
+u0029,Polish Hill,35-44,BBQ|Mediterranean,1,none
+u0030,Oakland,18-24,Belgian|Pizza,3,none
+u0031,Lawrenceville,55+,Thai|Vegan,1,vegan
+u0032,Shadyside,35-44,Indian|Spanish,2,none
+u0033,Point Breeze,25-34,Indian,4,none
+u0034,Lawrenceville,25-34,American|Mediterranean,2,none
+u0035,Bloomfield,45-54,American|Indian,3,none
+u0036,Highland Park,18-24,Diner|Korean,2,vegan
+u0037,Mount Washington,25-34,Italian|Spanish,3,vegan
+u0038,Oakland,35-44,Diner|Seafood,3,gluten_free
+u0039,South Side,35-44,Chinese,1,none
+u0040,Mount Washington,35-44,Diner,1,gluten_free
+u0041,Shadyside,18-24,Chinese,4,none
+u0042,Strip District,18-24,Diner|Indian,2,vegetarian
+u0043,East Liberty,55+,Mexican,3,vegetarian
+u0044,North Shore,35-44,Indian|Vegan,4,gluten_free
+u0045,Strip District,35-44,Indian|Pizza,2,none
+u0046,Squirrel Hill,55+,Italian|Vegan,2,gluten_free
+u0047,South Side,18-24,Mexican|Vegan,1,none
+u0048,Point Breeze,25-34,Mexican|Vegan,4,gluten_free
+u0049,Strip District,18-24,Diner,2,vegan
+u0050,Oakland,18-24,Caribbean|Pizza,2,vegan
+u0051,Mount Washington,35-44,American|Diner,3,vegetarian
+u0052,Polish Hill,45-54,Spanish,1,vegan
+u0053,Bloomfield,18-24,Argentinian|Cafe,2,gluten_free
+u0054,East Liberty,25-34,Mediterranean,4,none
+u0055,Squirrel Hill,25-34,Cafe|Mediterranean,3,vegan
+u0056,Oakland,25-34,Caribbean|Mexican,4,none
+u0057,North Shore,35-44,Belgian|Mediterranean,3,none
+u0058,Polish Hill,18-24,Mediterranean|Thai,2,none
+u0059,Highland Park,35-44,Vegan,2,vegetarian
+u0060,Bloomfield,18-24,Thai,2,none
+u0061,Shadyside,18-24,Argentinian,2,none
+u0062,Oakland,55+,Korean|Spanish,3,none
+u0063,Shadyside,25-34,Italian|Vegan,2,gluten_free
+u0064,Mount Washington,35-44,Caribbean|Spanish,3,vegan
+u0065,Highland Park,25-34,Caribbean,1,none
+u0066,Downtown,35-44,Spanish,3,none
+u0067,Point Breeze,55+,Mediterranean|Pizza,3,none
+u0068,North Shore,45-54,Seafood,2,gluten_free
+u0069,Shadyside,35-44,Japanese,4,none
+u0070,Strip District,55+,Italian|Thai,1,none
+u0071,Downtown,18-24,American,2,none
+u0072,Highland Park,18-24,Italian,1,none
+u0073,Point Breeze,25-34,Chinese|Pizza,2,vegetarian
+u0074,Bloomfield,18-24,Diner,1,none
+u0075,Lawrenceville,25-34,Spanish,2,none
+u0076,Squirrel Hill,45-54,Chinese,3,none
+u0077,South Side,25-34,Cafe|Vegan,3,none
+u0078,Polish Hill,55+,Cafe,1,none
+u0079,Point Breeze,18-24,Indian,1,vegetarian
+u0080,Downtown,18-24,BBQ,2,gluten_free
+u0081,North Shore,25-34,American|BBQ,2,vegetarian
+u0082,North Shore,18-24,Korean,3,vegan
+u0083,Point Breeze,45-54,Indian|Korean,2,vegan
+u0084,East Liberty,35-44,Thai,4,none
+u0085,Polish Hill,25-34,Chinese,3,vegan
+u0086,Shadyside,25-34,Korean,2,none
+u0087,Polish Hill,18-24,Argentinian|Spanish,1,none
+u0088,Shadyside,25-34,Mexican|Spanish,4,vegan
+u0089,Bloomfield,18-24,Korean,3,none
+u0090,Highland Park,55+,Belgian,1,none
+u0091,South Side,18-24,American|Japanese,4,vegetarian
+u0092,Squirrel Hill,35-44,Spanish,2,none
+u0093,Strip District,35-44,American|Indian,3,none
+u0094,Downtown,25-34,American,3,vegetarian
+u0095,Lawrenceville,25-34,Cafe|Korean,3,none
+u0096,Bloomfield,55+,Mexican|Pizza,2,vegan
+u0097,Downtown,35-44,Italian|Thai,2,vegan
+u0098,North Shore,35-44,Argentinian|Pizza,1,none
+u0099,Bloomfield,25-34,Vegan,3,none
+u0100,Shadyside,35-44,Cafe|Spanish,3,none
+u0101,Strip District,35-44,Chinese|Diner,3,vegan
+u0102,Polish Hill,45-54,Indian|Japanese,3,gluten_free
+u0103,Oakland,18-24,American|Argentinian,4,vegan
+u0104,Mount Washington,25-34,Chinese|Seafood,2,gluten_free
+u0105,East Liberty,25-34,Korean,3,vegetarian
+u0106,Downtown,25-34,Italian|Spanish,2,none
+u0107,Shadyside,25-34,BBQ|Chinese,4,vegetarian
+u0108,Oakland,45-54,Belgian|Cafe,2,vegan
+u0109,Mount Washington,35-44,Belgian,2,none
+u0110,Strip District,25-34,Cafe,4,none
+u0111,North Shore,18-24,Mediterranean,2,none
+u0112,Shadyside,45-54,Caribbean,4,vegan
+u0113,South Side,55+,Vegan,1,gluten_free
+u0114,Mount Washington,35-44,BBQ,1,none
+u0115,Squirrel Hill,18-24,Pizza|Seafood,2,none
+u0116,Strip District,35-44,Belgian,3,vegan
+u0117,Highland Park,45-54,Caribbean|Spanish,3,none
+u0118,South Side,18-24,Belgian,4,gluten_free
+u0119,Lawrenceville,18-24,Argentinian|Diner,2,vegan
+u0120,Lawrenceville,35-44,Indian,3,none
+u0121,East Liberty,25-34,Pizza|Seafood,2,none
+u0122,Downtown,45-54,Belgian,3,gluten_free
+u0123,Bloomfield,35-44,Italian,2,none
+u0124,Squirrel Hill,55+,Chinese|Diner,2,none
+u0125,Squirrel Hill,25-34,BBQ|Thai,2,none
+u0126,Lawrenceville,25-34,American|Diner,3,gluten_free
+u0127,Mount Washington,35-44,Indian,2,none
+u0128,Highland Park,25-34,BBQ|Thai,1,vegan
+u0129,East Liberty,25-34,Mediterranean|Spanish,3,none
+u0130,South Side,25-34,Argentinian|Korean,4,vegan
+u0131,Polish Hill,55+,Caribbean|Diner,2,none
+u0132,Highland Park,18-24,Argentinian|Diner,3,none
+u0133,Lawrenceville,25-34,Diner,3,gluten_free
+u0134,North Shore,25-34,Caribbean|Indian,4,vegetarian
+u0135,Strip District,45-54,Chinese|Japanese,1,vegetarian
+u0136,Polish Hill,55+,Caribbean|Indian,2,vegan
+u0137,Squirrel Hill,25-34,Belgian|Korean,3,gluten_free
+u0138,Point Breeze,35-44,Diner,2,none
+u0139,Lawrenceville,25-34,Chinese|Spanish,2,vegetarian
+u0140,Bloomfield,18-24,Indian,3,none
+u0141,Polish Hill,18-24,Mediterranean,2,vegetarian
+u0142,Mount Washington,25-34,Belgian|Vegan,3,gluten_free
+u0143,Point Breeze,18-24,BBQ,2,none
+u0144,Point Breeze,25-34,Mediterranean,2,gluten_free
+u0145,South Side,25-34,Mediterranean|Pizza,3,vegetarian
+u0146,Polish Hill,25-34,Chinese,3,gluten_free
+u0147,North Shore,35-44,American|Japanese,2,gluten_free
+u0148,Highland Park,25-34,Thai,2,vegan
+u0149,Highland Park,25-34,Indian|Vegan,4,none
+u0150,Mount Washington,35-44,Chinese|Spanish,3,gluten_free
+u0151,Strip District,25-34,Pizza,2,none
+u0152,Shadyside,35-44,Korean|Mediterranean,2,none
+u0153,North Shore,45-54,Cafe,1,vegan
+u0154,Downtown,45-54,American,3,none
+u0155,North Shore,18-24,BBQ,2,vegan
+u0156,Shadyside,18-24,Vegan,2,none
+u0157,Point Breeze,55+,Korean,1,gluten_free
+u0158,Bloomfield,45-54,BBQ|Korean,3,none
+u0159,North Shore,18-24,BBQ,2,vegan
+u0160,Shadyside,35-44,Cafe|Italian,4,vegetarian
+u0161,Downtown,18-24,Vegan,3,none
+u0162,Shadyside,25-34,Vegan,2,none
+u0163,Squirrel Hill,25-34,American,3,vegetarian
+u0164,Mount Washington,25-34,Pizza|Thai,3,none
+u0165,Bloomfield,18-24,Belgian|Pizza,3,gluten_free
+u0166,Shadyside,18-24,Argentinian|Chinese,1,none
+u0167,Strip District,45-54,American,1,none
+u0168,Polish Hill,18-24,Mediterranean,1,vegan
+u0169,Bloomfield,35-44,Spanish,3,vegan
+u0170,Squirrel Hill,35-44,Argentinian,2,none
+u0171,Lawrenceville,35-44,Pizza,2,none
+u0172,Squirrel Hill,25-34,Chinese,3,none
+u0173,Shadyside,18-24,BBQ|Pizza,3,none
+u0174,North Shore,18-24,Diner,3,gluten_free
+u0175,Point Breeze,45-54,Indian,4,none
+u0176,South Side,35-44,Indian|Seafood,2,none
+u0177,Downtown,35-44,Mexican,3,none
+u0178,Oakland,18-24,Mexican,3,none
+u0179,South Side,25-34,Italian,3,none
+u0180,Shadyside,25-34,Seafood,2,none
+u0181,Lawrenceville,35-44,Italian,3,none
+u0182,Downtown,45-54,Argentinian|Chinese,3,none
+u0183,Strip District,25-34,Belgian|Seafood,4,none
+u0184,Shadyside,35-44,Argentinian,2,none
+u0185,Downtown,18-24,Mediterranean,2,none
+u0186,East Liberty,18-24,Indian,3,none
+u0187,Shadyside,18-24,Chinese,2,none
+u0188,Mount Washington,25-34,Caribbean,4,vegetarian
+u0189,North Shore,18-24,Thai,1,none
+u0190,Squirrel Hill,45-54,Korean,3,none
+u0191,North Shore,55+,Seafood,1,none
+u0192,Downtown,55+,Diner,2,none
+u0193,Highland Park,25-34,Pizza|Thai,2,gluten_free
+u0194,Mount Washington,25-34,Vegan,2,none
+u0195,North Shore,25-34,BBQ,1,none
+u0196,South Side,25-34,American|Seafood,2,none
+u0197,Highland Park,25-34,Diner|Korean,2,gluten_free
+u0198,Mount Washington,25-34,Indian,3,none
+u0199,Squirrel Hill,25-34,Japanese,2,none
+u0200,East Liberty,25-34,Argentinian|Caribbean,2,vegan
+u0201,East Liberty,45-54,Japanese|Pizza,4,none
+u0202,Strip District,18-24,Korean,4,vegetarian
+u0203,Point Breeze,18-24,Argentinian|Diner,1,vegetarian
+u0204,Strip District,35-44,Mediterranean|Thai,3,none
+u0205,Lawrenceville,18-24,Italian,3,none
+u0206,Mount Washington,35-44,Caribbean|Spanish,2,none
+u0207,Lawrenceville,35-44,BBQ|Indian,4,none
+u0208,Highland Park,25-34,Vegan,2,vegan
+u0209,Strip District,45-54,Korean|Seafood,2,none
+u0210,South Side,35-44,Japanese,2,gluten_free
+u0211,Strip District,45-54,BBQ|Chinese,3,none
+u0212,North Shore,45-54,Caribbean,1,none
+u0213,Oakland,18-24,Italian|Vegan,3,vegetarian
+u0214,Highland Park,18-24,Diner,2,vegetarian
+u0215,Oakland,25-34,Italian|Thai,2,none
+u0216,East Liberty,25-34,Argentinian,3,gluten_free
+u0217,Bloomfield,35-44,Vegan,3,none
+u0218,Strip District,18-24,Chinese|Korean,2,none
+u0219,Oakland,18-24,Vegan,3,gluten_free
+u0220,Squirrel Hill,55+,Caribbean|Italian,3,none

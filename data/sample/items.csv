@@ -1,0 +1,99 @@
+item_id,name,neighborhood,cuisine,price_tier,avg_rating,n_reviews,lat,lon,vegetarian_ok,vegan_ok,gluten_free_ok
+r0001,Primanti Bros Strip,Strip District,American,1,4.48,1659,40.451314,-79.99902,true,false,false
+r0002,Gaucho Parrilla,Strip District,Argentinian,3,4.04,1073,40.444547,-79.999807,false,false,true
+r0003,Pamela's Diner Strip,Strip District,Diner,1,4.42,1816,40.45035,-79.998459,true,false,false
+r0004,Smallman Galley,Strip District,American,3,3.85,1361,40.450598,-79.992518,true,true,true
+r0005,Kelly O's Diner,Strip District,Diner,1,4.13,1814,40.451506,-79.998777,true,false,false
+r0006,DiAnoia's Eatery,Strip District,Italian,3,4.1,2309,40.449845,-79.997943,true,false,true
+r0007,Church Brew Works,Lawrenceville,American,2,4.28,1424,40.465915,-79.965556,true,false,true
+r0008,The Vandal,Lawrenceville,American,2,4.01,4200,40.468438,-79.963208,true,true,true
+r0009,Apteka,Lawrenceville,Vegan,2,4.55,1510,40.465663,-79.966941,true,true,true
+r0010,Dijleh,Lawrenceville,Mediterranean,2,4.38,551,40.466858,-79.96702,true,false,true
+r0011,Morcilla,Lawrenceville,Spanish,3,4.23,615,40.46943,-79.962871,true,false,true
+r0012,Round Corner Cantina,Lawrenceville,Mexican,2,4.23,1806,40.46755,-79.963844,true,true,false
+r0013,Noodlehead,Bloomfield,Thai,1,4.37,1201,40.463437,-79.949097,true,true,true
+r0014,Tessaro's,Bloomfield,American,2,3.93,706,40.457029,-79.950259,false,false,true
+r0015,Coca Cafe,Polish Hill,Cafe,1,4.49,535,40.455975,-79.960915,true,true,true
+r0016,Piccolo Forno,Lawrenceville,Italian,2,4.36,1099,40.462151,-79.965505,true,false,false
+r0017,Casbah,Shadyside,Mediterranean,3,3.99,768,40.457334,-79.93242,true,true,true
+r0018,Grit & Grace,Downtown,American,3,3.75,401,40.443574,-80.003374,true,false,true
+r0019,Meat & Potatoes,Downtown,American,3,4.39,1084,40.438242,-80.001309,false,false,true
+r0020,Noodlehead Downtown,Downtown,Thai,1,4.04,1520,40.439718,-80.002324,true,true,true
+r0021,Condado Tacos Downtown,Downtown,Mexican,1,4.02,761,40.44237,-80.004786,true,true,true
+r0022,Sienna Mercato,Downtown,Italian,3,4.15,706,40.437412,-80.001339,true,false,true
+r0023,The Commoner,Downtown,American,3,4.12,1563,40.442442,-80.00146,true,false,true
+r0024,Everyday Noodles,Squirrel Hill,Chinese,1,3.64,301,40.43713,-79.923039,true,true,false
+r0025,Chengdu Gourmet,Squirrel Hill,Chinese,2,3.83,1298,40.434432,-79.925792,true,false,true
+r0026,Sushi Kim,Squirrel Hill,Japanese,2,4.41,764,40.437266,-79.918902,true,false,true
+r0027,Aladdin's Eatery,Squirrel Hill,Mediterranean,1,4.03,504,40.435599,-79.923416,true,true,true
+r0028,Mineo's Pizza,Squirrel Hill,Pizza,1,4.23,1330,40.440921,-79.927982,true,false,false
+r0029,Silk Elephant,Squirrel Hill,Thai,2,3.96,1032,40.436618,-79.927138,true,true,true
+r0030,Cafe 33,Squirrel Hill,Chinese,1,4.07,3011,40.439098,-79.922734,true,true,false
+r0031,India Garden,Oakland,Indian,2,4.63,1144,40.43843,-79.956362,true,true,true
+r0032,The O,Oakland,American,1,3.73,2733,40.444005,-79.955829,true,false,false
+r0033,Conflict Kitchen Ghost,Oakland,Cafe,1,3.67,746,40.439581,-79.95968,true,true,true
+r0034,Fuel & Fuddle,Oakland,American,2,3.79,350,40.443405,-79.957567,true,false,false
+r0035,Stacks Pancake House,Oakland,Diner,1,4.9,3970,40.442441,-79.954386,true,false,false
+r0036,Bangkok Balcony,Oakland,Thai,2,4.24,220,40.442743,-79.959869,true,true,true
+r0037,Sushi Fuku Oakland,Oakland,Japanese,1,4.1,639,40.439061,-79.958146,true,false,true
+r0038,Mad Mex Oakland,Oakland,Mexican,2,3.79,878,40.444698,-79.956429,true,true,true
+r0039,Legume,Point Breeze,American,4,4.77,945,40.439876,-79.909559,true,true,true
+r0040,Point Brugge,Point Breeze,Belgian,3,3.74,691,40.445291,-79.905152,true,false,true
+r0041,Kelly's Bar Point Breeze,Point Breeze,American,2,3.86,4200,40.442005,-79.910276,true,false,false
+r0042,Whitfield,East Liberty,American,3,4.28,1883,40.463615,-79.924109,true,true,true
+r0043,Condado Tacos East Lib,East Liberty,Mexican,1,4.31,620,40.46063,-79.921522,true,true,true
+r0044,Smoke BBQ East Liberty,East Liberty,BBQ,2,4.21,401,40.459735,-79.925077,false,false,true
+r0045,Tako,Downtown,Mexican,2,4.25,903,40.445737,-80.00232,true,true,true
+r0046,Bakersfield,East Liberty,Mexican,2,4.54,736,40.465018,-79.920742,true,false,true
+r0047,Dish Osteria,South Side,Italian,3,3.72,1115,40.429886,-79.970093,true,false,true
+r0048,Mallorca,South Side,Spanish,3,4.09,3279,40.424496,-79.969747,true,false,true
+r0049,Double Wide Grill,South Side,BBQ,2,3.84,452,40.42745,-79.970316,true,false,true
+r0050,Fat Head's Saloon,South Side,American,2,4.09,977,40.43053,-79.975884,true,false,false
+r0051,Nakama,South Side,Japanese,3,4.38,1045,40.429613,-79.970478,true,false,true
+r0052,Piper's Pub,South Side,American,2,3.72,543,40.422449,-79.974846,true,false,true
+r0053,Grand Concourse,South Side,Seafood,4,3.69,1863,40.425966,-79.975702,true,false,true
+r0054,Hofbrauhaus Pittsburgh,South Side,American,2,4.5,780,40.428692,-79.976153,true,false,false
+r0055,Burgatory North Shore,North Shore,American,2,3.91,880,40.447414,-80.008288,true,true,true
+r0056,Jerome Bettis Grille,North Shore,American,2,3.77,1110,40.445128,-80.011573,false,false,true
+r0057,Yard House North Shore,North Shore,American,2,4.81,4200,40.446071,-80.011615,true,true,true
+r0058,Monterey Bay Fish Grotto,Mount Washington,Seafood,4,3.94,352,40.42584,-80.011062,true,false,true
+r0059,Altius,Mount Washington,American,4,3.92,589,40.429347,-80.006582,true,true,true
+r0060,Shiloh Grill,Mount Washington,American,2,3.96,466,40.421958,-80.010688,true,false,false
+r0061,The Grandview Saloon,Mount Washington,American,3,3.64,286,40.425769,-80.010483,true,false,true
+r0062,Park Bruges,Highland Park,Belgian,3,4.79,455,40.485688,-79.920062,true,false,true
+r0063,E2,Highland Park,American,3,4.27,758,40.488015,-79.919715,true,true,true
+r0064,Park House Highland,Highland Park,Cafe,1,4.42,826,40.484486,-79.919161,true,true,true
+r0065,Kiin Kaow,Bloomfield,Thai,2,3.67,893,40.462704,-79.950428,true,true,true
+r0066,HowLee,Bloomfield,Chinese,2,3.96,1154,40.460685,-79.950099,true,false,true
+r0067,Quiet Storm,Bloomfield,Vegan,1,4.27,1094,40.462815,-79.946262,true,true,true
+r0068,Coca Cafe Annex,Polish Hill,Cafe,1,4.26,592,40.456959,-79.9654,true,true,false
+r0069,Gooski's Kitchen,Polish Hill,American,1,4.29,2951,40.456508,-79.95912,true,false,false
+r0070,Allegheny Wine Mixer,Lawrenceville,American,2,4.24,2259,40.464911,-79.967837,true,true,true
+r0071,Smiling Banana Leaf,Bloomfield,Thai,1,4.31,1878,40.46284,-79.954534,true,true,true
+r0072,Kiin Lao,East Liberty,Thai,2,4.17,1180,40.457769,-79.922815,true,true,true
+r0073,Pusadee's Garden,Bloomfield,Thai,3,4.2,822,40.460523,-79.94961,true,true,true
+r0074,Udipi Cafe,Squirrel Hill,Indian,1,4.21,831,40.442814,-79.9305,true,true,true
+r0075,Tamarind,East Liberty,Indian,2,4.26,286,40.461988,-79.922516,true,true,true
+r0076,Seoul Kitchen,Oakland,Korean,2,4.04,1796,40.446682,-79.961502,true,false,true
+r0077,Goejei,Squirrel Hill,Korean,2,4.61,776,40.438216,-79.925959,true,true,true
+r0078,Kaya,Strip District,Caribbean,3,4.3,2237,40.452148,-79.990703,true,true,true
+r0079,Eleven,Strip District,American,4,4.05,1751,40.455632,-79.994583,true,false,true
+r0080,Bitter Ends Garden,Lawrenceville,Vegan,2,3.74,1961,40.4674,-79.966592,true,true,true
+r0081,The Milk Shake Factory,South Side,Cafe,1,4.41,2227,40.430947,-79.975272,true,true,false
+r0082,Pamela's Shadyside,Shadyside,Diner,1,4.13,326,40.460662,-79.932608,true,false,false
+r0083,Harris Grill,Shadyside,American,2,4.37,2826,40.451684,-79.936355,true,false,false
+r0084,Noodlehead Shadyside,Shadyside,Thai,1,3.72,1004,40.453103,-79.937841,true,true,true
+r0085,Sushi Fuku Shadyside,Shadyside,Japanese,1,4.36,2203,40.453187,-79.933864,true,false,true
+r0086,Mad Mex Shadyside,Shadyside,Mexican,2,4.29,1032,40.448326,-79.933887,true,true,true
+r0087,Girasole,Shadyside,Italian,3,4.36,648,40.460049,-79.94099,true,false,true
+r0088,Lucca,Shadyside,Italian,3,4.45,1269,40.450455,-79.930372,true,false,true
+r0089,Industry Public House,Lawrenceville,American,2,4.23,2073,40.465487,-79.962059,true,false,true
+r0090,Smoke BBQ South Side,South Side,BBQ,2,4.1,536,40.429303,-79.973889,false,false,true
+r0091,Pizza Perfect Oakland,Oakland,Pizza,1,3.78,1975,40.441042,-79.95575,true,false,false
+r0092,Aiello's Pizza,Squirrel Hill,Pizza,1,3.86,583,40.438025,-79.918356,true,false,false
+r0093,Beto's Pizza,South Side,Pizza,1,4.62,989,40.429207,-79.972167,true,false,false
+r0094,Ephesus Pizza,Bloomfield,Pizza,1,4.9,1446,40.46397,-79.946775,true,false,true
+r0095,The Porch at Schenley,Oakland,American,2,3.99,3016,40.440885,-79.962911,true,true,true
+r0096,Social House Seven,East Liberty,Korean,3,3.71,319,40.461424,-79.917471,true,false,true
+r0097,Chengdu Gourmet Aspinwall,Highland Park,Chinese,2,4.33,1334,40.474496,-79.918582,true,false,true
+r0098,Del's Bar,Squirrel Hill,American,1,4.17,194,40.439229,-79.927038,true,false,false
