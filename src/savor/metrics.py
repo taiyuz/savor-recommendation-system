@@ -17,7 +17,7 @@ def dcg_at_k(ranked: list[str], relevant: set[str], k: int) -> float:
     for rank, item_id in enumerate(ranked[:k], start=1):
         if item_id in relevant:
             score += 1.0 / math.log2(rank + 1)
-        return score
+    return score
 
 
 def ndcg_at_k(ranked: list[str], relevant: set[str], k: int) -> float:
