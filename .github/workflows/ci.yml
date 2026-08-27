@@ -8,6 +8,8 @@ on:
 jobs:
   lint-test:
     runs-on: ubuntu-latest
+    env:
+      SAVOR_DATA_DIR: ${{ github.workspace }}/data/sample
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
