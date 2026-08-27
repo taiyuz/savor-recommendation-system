@@ -5,7 +5,7 @@ description = "Two-stage restaurant recommendation backend for Savor: retrieval,
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
-authors = [{ name = "Zhining Zhao" }]
+authors = [{ name = "Taiyu Zhu" }]
 keywords = ["recommendation-system", "fastapi", "restaurants", "ranking"]
 dependencies = [
     "fastapi>=0.115.0",
