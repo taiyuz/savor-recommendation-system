@@ -6,7 +6,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [{ name = "Taiyu Zhu" }]
-keywords = ["recommendation-system", "fastapi", "restaurants", "ranking"]
+keywords = ["recommender-system", "fastapi", "python", "ranking"]
 dependencies = [
     "fastapi>=0.115.0",
     "uvicorn[standard]>=0.32.0",
