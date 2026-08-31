@@ -40,25 +40,19 @@ def test_user_activity_feature_ignores_future_events(
     )
     full = FeatureBuilder().fit(catalog.users, catalog.items, catalog.interactions)
     leaked = [
-        uid
-        for uid, feat in train_only.users.items()
-        if feat.n_events < full.users[uid].n_events
+        uid for uid, feat in train_only.users.items() if feat.n_events < full.users[uid].n_events
     ]
     assert leaked, "valid-period events should exist so train activity is a strict subset"
+    train_n: dict[str, int] = {}
+    if train_catalog.interactions.height:
+        counts = train_catalog.interactions.group_by("user_id").len()
+        train_n = {str(user_id): int(n) for user_id, n in counts.iter_rows()}
     for uid, feat in train_only.users.items():
         assert feat.n_events <= full.users[uid].n_events
-        assert feat.n_events == (
-            train_catalog.interactions.filter(
-                train_catalog.interactions["user_id"] == uid
-            ).height
-            if train_catalog.interactions.height
-            else 0
-        )
+        assert feat.n_events == train_n.get(uid, 0)
 
 
-def test_sample_eval_table_coverage_gap(
-    train_catalog: Catalog, valid_catalog: Catalog
-) -> None:
+def test_sample_eval_table_coverage_gap(train_catalog: Catalog, valid_catalog: Catalog) -> None:
     rec = Recommender().fit(train_catalog)
     report = evaluate(rec, train_catalog, valid_catalog, k=10)
     assert "synthetic" in report.dataset
