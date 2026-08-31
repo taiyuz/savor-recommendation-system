@@ -1,6 +1,10 @@
 # Savor recommendation backend
 
-Two-stage restaurant recommendations for [Savor](https://github.com/taiyuz/Authentication-and-ML), a Pittsburgh food product. This repo is the Python retrieval / ranking / serving stack that the iOS apps never actually shipped. It is not a notebook, and it is not a port of [savourapp](https://github.com/taiyuz/savourapp).
+[![ci](https://github.com/taiyuz/savor-recommendation-system/actions/workflows/ci.yml/badge.svg)](https://github.com/taiyuz/savor-recommendation-system/actions/workflows/ci.yml)
+
+Python recsys backend: **retrieve** a candidate set (latent two-tower, item-item CF, popularity), **rank** those candidates with user–item features, **serve** `GET /recommend`. Offline eval is recall@k and NDCG@k on a temporal split; coverage@k is the popularity-bias check. Cold start and train/valid leakage are guarded in pytest, not just described.
+
+This is the retrieval / ranking / serving stack for [Savor](https://github.com/taiyuz/Authentication-and-ML), a Pittsburgh food product the iOS apps never actually shipped. It is not a notebook, and it is not a port of [savourapp](https://github.com/taiyuz/savourapp).
 
 The checked-in catalog is **synthetic**. Restaurant names mix well-known Pittsburgh places with invented ones so the catalog is large enough to rank. Interactions are sampled from a preference model (cuisine, price, neighborhood, dietary constraints, popularity). Treat the eval table as a sanity check that the pipeline is wired correctly, not as a production metric.
 
@@ -54,9 +58,9 @@ The loader concatenates the two interaction shards so the sample stays GitHub-fr
 python scripts/generate_sample.py
 ```
 
-Seed is fixed at 42.
+Seed is fixed at 42. Point the loader at another directory with `SAVOR_DATA_DIR` (CI does this so a fresh checkout still finds `data/sample`).
 
-## How to run
+## Tests and API
 
 Python 3.12+. [`uv`](https://docs.astral.sh/uv/) is the intended installer; pip works too.
 
@@ -64,17 +68,17 @@ Python 3.12+. [`uv`](https://docs.astral.sh/uv/) is the intended installer; pip 
 uv venv
 uv pip install -e ".[dev]"
 
-# one command, sample recommend
-python -m savor recommend u0042
-
-python -m savor evaluate
-python -m savor serve
-# GET http://127.0.0.1:8000/recommend?user_id=u0042&k=10
+# tests (CI sets SAVOR_DATA_DIR; locally the loader also finds data/sample)
+pytest
+ruff check src tests && ruff format --check src tests
 ```
 
 ```bash
-pytest
-ruff check src tests && ruff format --check src tests
+# one recommendation, then the HTTP server
+python -m savor recommend u0042
+python -m savor serve
+# GET http://127.0.0.1:8000/health
+# GET http://127.0.0.1:8000/recommend?user_id=u0042&k=10
 ```
 
 Docker:
@@ -86,18 +90,20 @@ docker run -p 8000:8000 savor-recs
 
 Unknown `user_id` → HTTP 404. Known user with no history → `strategy: cold_start_popularity`.
 
-## Evaluation (synthetic)
+## Evaluation (synthetic sample)
 
 Time split: train = events strictly before **2024-04-01**, valid = on or after. Ground truth is a valid-period save/visit whose `(user_id, item_id)` pair never appeared in train. That is a discovery task, not "predict that they go back to the same place."
 
 Fit retrieval and the ranker on train only. Score the 188 users who have both train history and held-out positives. `k=10`.
+
+Numbers below are from the checked-in **synthetic** sample (`python -m savor evaluate`). pytest asserts the coverage gap and that two-stage NDCG does not lose to popularity. They are not production traffic.
 
 | model | recall@10 | ndcg@10 | coverage@10 |
 | --- | ---: | ---: | ---: |
 | two-stage (SVD + item-item + HGB) | 0.187 | 0.095 | 0.980 |
 | popularity baseline | 0.144 | 0.085 | 0.153 |
 
-These numbers are from the checked-in **synthetic** sample, not production traffic. The interesting gap is coverage: popularity collapses to the head of the catalog; the two-stage list still hits almost every restaurant for someone. The ranking lift is real and modest, which is what this generator deserves.
+The interesting gap is coverage: popularity collapses to the head of the catalog; the two-stage list still hits almost every restaurant for someone. The ranking lift is real and modest, which is what this generator deserves.
 
 Re-run:
 
@@ -107,11 +113,11 @@ python -m savor evaluate
 
 ## Rec-sys pitfalls this repo actually encodes
 
-**Leakage.** A random interaction split would put a user's Thursday visit into the features that rank their Wednesday feed. Popularity, SVD factors, item-item neighbors, and cuisine affinity are all computed on train timestamps only. Tests assert the cutoff, assert no shared rows, and assert that items which appear only after the cutoff have zero train popularity.
+**Leakage.** A random interaction split would put a user's Thursday visit into the features that rank their Wednesday feed. Popularity, SVD factors, item-item neighbors, cuisine affinity, and user activity are all computed on train timestamps only. Tests assert the cutoff, assert no shared rows, assert future-only items have zero train popularity, and assert `log_user_activity` does not count valid-period events. Ranked lists with `exclude_seen=True` cannot contain the user's train items.
 
 **Popularity bias.** Interactions are drawn with `popularity ** 0.35`, so head restaurants still get more traffic (as they do in any city) without wiping out personalization. Coverage@10 is the honest report of how badly a model clings to the head. Pairing it with recall/ndcg is the point: a model can "win" recall by recommending Primanti's to everyone.
 
-**Cold start.** Users with no history cannot have a two-tower row that means anything. They get popularity, still filtered by `exclude_seen` (empty) and still passed through the ranker so dietary / cuisine / distance features can move the list. Items with no history have zero CF score and only appear if content features or the popularity pad surface them — which they will not, if popularity is zero. That last case is left visible on purpose.
+**Cold start.** Users with no history cannot have a two-tower row that means anything. They get popularity, still filtered by `exclude_seen` (empty) and still passed through the ranker so dietary / cuisine / distance features can move the list. The API labels that path `cold_start_popularity`. Items with no history have zero CF score and only appear if content features or the popularity pad surface them — which they will not, if popularity is zero. That last case is left visible on purpose.
 
 ## Layout
 
@@ -125,7 +131,7 @@ src/savor/
   evaluate.py    recall@k, NDCG@k, coverage
   cli.py         python -m savor recommend|evaluate|serve
 data/sample/     checked-in synthetic CSVs (interaction log is sharded)
-tests/           leakage, metrics, retrieval, API contract
+tests/           leakage, cold start, metrics, retrieval, API contract
 ```
 
 ## Limitations
