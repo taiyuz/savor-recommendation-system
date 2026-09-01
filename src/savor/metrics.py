@@ -29,6 +29,21 @@ def ndcg_at_k(ranked: list[str], relevant: set[str], k: int) -> float:
     return dcg_at_k(ranked, relevant, k) / ideal
 
 
+def mrr_at_k(ranked: list[str], relevant: set[str], k: int) -> float:
+    """Reciprocal rank of the first relevant item, truncated at k.
+
+    Unlike recall@k this is position-sensitive inside the window: a hit at rank 1
+    scores 1.0, a hit at rank k scores 1/k, and a hit at rank k+1 scores 0.
+    Unlike NDCG it ignores every hit after the first.
+    """
+    if not relevant or k <= 0:
+        return 0.0
+    for rank, item_id in enumerate(ranked[:k], start=1):
+        if item_id in relevant:
+            return 1.0 / rank
+    return 0.0
+
+
 def coverage_at_k(recommendations: dict[str, list[str]], catalog_size: int, k: int) -> float:
     if catalog_size <= 0:
         return 0.0
