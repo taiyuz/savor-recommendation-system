@@ -50,11 +50,13 @@ def _print_eval(k: int) -> int:
         "two_stage": {
             "recall": round(report.recall, 4),
             "ndcg": round(report.ndcg, 4),
+            "mrr": round(report.mrr, 4),
             "coverage": round(report.coverage, 4),
         },
         "popularity": {
             "recall": round(report.popularity_recall, 4),
             "ndcg": round(report.popularity_ndcg, 4),
+            "mrr": round(report.popularity_mrr, 4),
             "coverage": round(report.popularity_coverage, 4),
         },
     }

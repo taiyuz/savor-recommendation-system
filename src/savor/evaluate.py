@@ -9,7 +9,7 @@ import polars as pl
 from savor.config import DEFAULT_K, POSITIVE_EVENTS, SPLIT_CUTOFF
 from savor.data.loader import Catalog, load_catalog
 from savor.data.splits import temporal_split
-from savor.metrics import coverage_at_k, ndcg_at_k, recall_at_k
+from savor.metrics import coverage_at_k, mrr_at_k, ndcg_at_k, recall_at_k
 from savor.pipeline import Recommender, ScoredItem
 
 
@@ -20,9 +20,11 @@ class EvalReport:
     n_eval_users: int
     recall: float
     ndcg: float
+    mrr: float
     coverage: float
     popularity_recall: float
     popularity_ndcg: float
+    popularity_mrr: float
     popularity_coverage: float
 
     def as_table_rows(self) -> list[tuple[str, str, str, str]]:
@@ -83,8 +85,10 @@ def evaluate(
     pop_recs: dict[str, list[str]] = {}
     recalls: list[float] = []
     ndcgs: list[float] = []
+    mrrs: list[float] = []
     pop_recalls: list[float] = []
     pop_ndcgs: list[float] = []
+    pop_mrrs: list[float] = []
 
     for user_id in eval_users:
         relevant = labels[user_id]
@@ -94,8 +98,10 @@ def evaluate(
         pop_recs[user_id] = popular
         recalls.append(recall_at_k(ranked, relevant, k))
         ndcgs.append(ndcg_at_k(ranked, relevant, k))
+        mrrs.append(mrr_at_k(ranked, relevant, k))
         pop_recalls.append(recall_at_k(popular, relevant, k))
         pop_ndcgs.append(ndcg_at_k(popular, relevant, k))
+        pop_mrrs.append(mrr_at_k(popular, relevant, k))
 
     n_items = train.items.height
     n = len(eval_users) or 1
@@ -105,9 +111,11 @@ def evaluate(
         n_eval_users=len(eval_users),
         recall=sum(recalls) / n if eval_users else 0.0,
         ndcg=sum(ndcgs) / n if eval_users else 0.0,
+        mrr=sum(mrrs) / n if eval_users else 0.0,
         coverage=coverage_at_k(recs, n_items, k),
         popularity_recall=sum(pop_recalls) / n if eval_users else 0.0,
         popularity_ndcg=sum(pop_ndcgs) / n if eval_users else 0.0,
+        popularity_mrr=sum(pop_mrrs) / n if eval_users else 0.0,
         popularity_coverage=coverage_at_k(pop_recs, n_items, k),
     )
 

@@ -62,6 +62,10 @@ def test_sample_eval_table_coverage_gap(train_catalog: Catalog, valid_catalog: C
     assert report.popularity_coverage < 0.4
     assert report.recall > 0.0
     assert report.ndcg >= report.popularity_ndcg - 1e-6
+    # MRR is first-hit: if anyone is recalled inside k, mean MRR is strictly positive.
+    # Do not pin a synthetic leaderboard cell.
+    assert 0.0 < report.mrr <= 1.0
+    assert 0.0 <= report.popularity_mrr <= 1.0
     rows = report.as_table_rows()
     assert rows[0][0].startswith("two-stage")
     assert rows[1][0].startswith("popularity")
