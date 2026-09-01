@@ -2,7 +2,7 @@
 
 [![ci](https://github.com/taiyuz/savor-recommendation-system/actions/workflows/ci.yml/badge.svg)](https://github.com/taiyuz/savor-recommendation-system/actions/workflows/ci.yml)
 
-Python recsys backend: **retrieve** a candidate set (latent two-tower, item-item CF, popularity), **rank** those candidates with user–item features, **serve** `GET /recommend`. Offline eval is recall@k and NDCG@k on a temporal split; coverage@k is the popularity-bias check. Cold start and train/valid leakage are guarded in pytest, not just described.
+Python recsys backend: **retrieve** a candidate set (latent two-tower, item-item CF, popularity), **rank** those candidates with user–item features, **serve** `GET /recommend`. Offline eval is recall@k, NDCG@k, and MRR@k on a temporal split; coverage@k is the popularity-bias check. Cold start, train/valid leakage, view-as-positive labels, and inverted ranking are guarded in pytest, not just described.
 
 This is the retrieval / ranking / serving stack for [Savor](https://github.com/taiyuz/Authentication-and-ML), a Pittsburgh food product the iOS apps never actually shipped. It is not a notebook, and it is not a port of [savourapp](https://github.com/taiyuz/savourapp).
 
@@ -42,7 +42,7 @@ flowchart TD
 
 Retrieval and ranking are fit on the **train** slice for evaluation. The serving process fits on the full sample so a demo request uses every checked-in event.
 
-Views are weak implicit feedback for retrieval weights (`view=1, save=3, visit=5`). The ranker labels **save/visit only**. Using views as positives would inflate metrics and teach the model to rank anything the user scrolled past.
+Views are weak implicit feedback for retrieval weights (`view=1, save=3, visit=5`). The ranker labels **save/visit only**. Using views as positives would inflate metrics and teach the model to rank anything the user scrolled past. Held-out eval labels are the same cut: a valid-period view is not a positive.
 
 ## Data
 
@@ -92,16 +92,20 @@ Unknown `user_id` → HTTP 404. Known user with no history → `strategy: cold_s
 
 ## Evaluation (synthetic sample)
 
-Time split: train = events strictly before **2024-04-01**, valid = on or after. Ground truth is a valid-period save/visit whose `(user_id, item_id)` pair never appeared in train. That is a discovery task, not "predict that they go back to the same place."
+Time split: train = events strictly before **2024-04-01**, valid = on or after. Ground truth is a valid-period **save/visit** whose `(user_id, item_id)` pair never appeared in train. Views in the valid slice are not labels. That is a discovery task, not "predict that they go back to the same place."
 
-Fit retrieval and the ranker on train only. Score the 188 users who have both train history and held-out positives. `k=10`.
+Fit retrieval and the ranker on train only. Score the users who have both train history and held-out positives. `k=10`.
 
-Numbers below are from the checked-in **synthetic** sample (`python -m savor evaluate`). pytest asserts the coverage gap and that two-stage NDCG does not lose to popularity. They are not production traffic.
+Recall@k is position-insensitive inside the window. NDCG@k discounts every hit. **MRR@k is first-hit only**: a relevant item at rank 1 scores 1.0, at rank k scores 1/k, at rank k+1 scores 0. Pytest checks those definitions (and that IDCG truncates when `|relevant| > k`). It does **not** freeze a leaderboard cell.
+
+The table below is one run of `python -m savor evaluate` on the checked-in synthetic generator. pytest asserts the coverage gap, that two-stage NDCG does not lose to popularity, and that mean MRR@10 is in `(0, 1]`. Those cells are not production traffic, and they are not CI pins.
 
 | model | recall@10 | ndcg@10 | coverage@10 |
 | --- | ---: | ---: | ---: |
 | two-stage (SVD + item-item + HGB) | 0.187 | 0.095 | 0.980 |
 | popularity baseline | 0.144 | 0.085 | 0.153 |
+
+MRR@10 is printed in the CLI JSON (`two_stage.mrr` / `popularity.mrr`). It is omitted from the table on purpose: this README does not invent a number that CI does not pin.
 
 The interesting gap is coverage: popularity collapses to the head of the catalog; the two-stage list still hits almost every restaurant for someone. The ranking lift is real and modest, which is what this generator deserves.
 
@@ -115,7 +119,11 @@ python -m savor evaluate
 
 **Leakage.** A random interaction split would put a user's Thursday visit into the features that rank their Wednesday feed. Popularity, SVD factors, item-item neighbors, cuisine affinity, and user activity are all computed on train timestamps only. Tests assert the cutoff, assert no shared rows, assert future-only items have zero train popularity, and assert `log_user_activity` does not count valid-period events. Ranked lists with `exclude_seen=True` cannot contain the user's train items.
 
-**Popularity bias.** Interactions are drawn with `popularity ** 0.35`, so head restaurants still get more traffic (as they do in any city) without wiping out personalization. Coverage@10 is the honest report of how badly a model clings to the head. Pairing it with recall/ndcg is the point: a model can "win" recall by recommending Primanti's to everyone.
+**Weak labels.** A valid-period `view` is not a held-out positive. Tests walk view-only pairs in the valid slice and assert they are absent from `held_out_positives`. Treating scroll events as visits would inflate recall/NDCG/MRR.
+
+**Inverted ranking.** `recommend()` must return scores in non-increasing order. A test compares the list to `sorted(scores, reverse=True)` so `np.argsort(scores)` (ascending) cannot sneak in.
+
+**Popularity bias.** Interactions are drawn with `popularity ** 0.35`, so head restaurants still get more traffic (as they do in any city) without wiping out personalization. Coverage@10 is the honest report of how badly a model clings to the head. Pairing it with recall/ndcg/mrr is the point: a model can "win" recall by recommending Primanti's to everyone.
 
 **Cold start.** Users with no history cannot have a two-tower row that means anything. They get popularity, still filtered by `exclude_seen` (empty) and still passed through the ranker so dietary / cuisine / distance features can move the list. The API labels that path `cold_start_popularity`. Items with no history have zero CF score and only appear if content features or the popularity pad surface them — which they will not, if popularity is zero. That last case is left visible on purpose.
 
@@ -128,10 +136,11 @@ src/savor/
   ranking/       feature builder, HistGradientBoosting
   api/           FastAPI app
   pipeline.py    Recommender.fit / recommend
-  evaluate.py    recall@k, NDCG@k, coverage
+  evaluate.py    recall@k, NDCG@k, MRR@k, coverage
+  metrics.py     metric definitions (first-hit MRR, truncated IDCG)
   cli.py         python -m savor recommend|evaluate|serve
 data/sample/     checked-in synthetic CSVs (interaction log is sharded)
-tests/           leakage, cold start, metrics, retrieval, API contract
+tests/           leakage, cold start, metrics, ranking order, retrieval, API contract
 ```
 
 ## Limitations
