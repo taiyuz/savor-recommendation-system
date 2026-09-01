@@ -15,6 +15,15 @@ def test_ranker_fits_and_scores_in_unit_interval(train_catalog: Catalog) -> None
         assert 0.0 <= row.score <= 1.0
 
 
+def test_ranked_scores_are_monotone_nonincreasing(train_catalog: Catalog) -> None:
+    rec = Recommender().fit(train_catalog)
+    warm = next(uid for uid, items in rec.generator.history.items() if items)
+    scores = [row.score for row in rec.recommend(warm, k=10)]
+    assert scores
+    # argsort(scores) instead of argsort(-scores) would invert the list.
+    assert scores == sorted(scores, reverse=True)
+
+
 def test_two_stage_beats_or_matches_popularity_on_ndcg(
     train_catalog: Catalog, valid_catalog: Catalog
 ) -> None:
