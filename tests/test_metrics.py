@@ -45,7 +45,7 @@ def test_mrr_at_k_uses_only_the_first_relevant_item() -> None:
     # Averaging 1/rank over every hit (MAP-shaped) would score (1 + 1/3) / 2 here.
     relevant = {"a", "c"}
     assert mrr_at_k(["a", "b", "c"], relevant, k=3) == 1.0
-    # First hit at rank 2, later hit at rank 3 → still 1/2, not (1/2 + 1/3) / 2.
+    # First hit at rank 2, later hit at rank 3 is still 1/2, not (1/2 + 1/3) / 2.
     assert mrr_at_k(["b", "a", "c"], relevant, k=3) == 0.5
 
 
