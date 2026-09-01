@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import polars as pl
 
-from savor.config import POSITIVE_EVENTS, SPLIT_CUTOFF
+from savor.config import SPLIT_CUTOFF
 from savor.data.loader import Catalog
 from savor.evaluate import held_out_positives
 from savor.ranking.features import FeatureBuilder
@@ -52,28 +52,19 @@ def test_held_out_labels_are_unseen_in_train(
             assert (user_id, item_id) not in train_pairs
 
 
-def test_held_out_positives_ignore_view_events(
-    train_catalog: Catalog, valid_catalog: Catalog
-) -> None:
+def test_held_out_positives_ignore_view_events() -> None:
     """Views are weak implicit feedback. Treating them as eval labels inflates recall."""
-    labels = held_out_positives(train_catalog.interactions, valid_catalog.interactions)
-    valid = valid_catalog.interactions
-    pos = valid.filter(pl.col("event").is_in(sorted(POSITIVE_EVENTS)))
-    pos_pairs = (
-        {(str(u), str(i)) for u, i in pos.select(["user_id", "item_id"]).iter_rows()}
-        if pos.height
-        else set()
+    train = pl.DataFrame({"user_id": ["u1"], "item_id": ["i1"], "event": ["save"]})
+    valid = pl.DataFrame(
+        {
+            "user_id": ["u1", "u1", "u1"],
+            "item_id": ["i2", "i3", "i1"],
+            "event": ["view", "visit", "view"],
+        }
     )
-    views = valid.filter(pl.col("event") == "view")
-    view_only: list[tuple[str, str]] = []
-    if views.height:
-        for user_id, item_id in views.select(["user_id", "item_id"]).iter_rows():
-            pair = (str(user_id), str(item_id))
-            if pair not in pos_pairs:
-                view_only.append(pair)
-    assert view_only, "valid slice should contain view-only pairs so the guard is live"
-    for user_id, item_id in view_only:
-        assert item_id not in labels.get(user_id, set())
+    labels = held_out_positives(train, valid)
+    # i2 is view-only, i1 already appeared in train, i3 is the only held-out visit.
+    assert labels == {"u1": {"i3"}}
 
 
 def test_popularity_feature_ignores_future_events(
