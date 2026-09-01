@@ -98,16 +98,16 @@ Fit retrieval and the ranker on train only. Score the users who have both train 
 
 Recall@k is position-insensitive inside the window. NDCG@k discounts every hit. **MRR@k is first-hit only**: a relevant item at rank 1 scores 1.0, at rank k scores 1/k, at rank k+1 scores 0. Pytest checks those definitions (and that IDCG truncates when `|relevant| > k`). It does **not** freeze a leaderboard cell.
 
-The table below is one run of `python -m savor evaluate` on the checked-in synthetic generator. pytest asserts the coverage gap, that two-stage NDCG does not lose to popularity, and that mean MRR@10 is in `(0, 1]`. Those cells are not production traffic, and they are not CI pins.
+The **stable** signal on this generator is coverage: popularity hugs the head, two-stage does not. Pytest pins `coverage@10 > 0.8` vs popularity `< 0.4`, plus mean MRR@10 in `(0, 1]`. Two-stage NDCG jitter vs popularity (HistGradientBoosting on 98 items) and is **not** pinned above the baseline — pinning it was a fake win.
+
+Popularity numbers are stable across runs. Two-stage recall/NDCG move; `python -m savor evaluate` prints the current draw. One observed popularity row:
 
 | model | recall@10 | ndcg@10 | coverage@10 |
 | --- | ---: | ---: | ---: |
-| two-stage (SVD + item-item + HGB) | 0.187 | 0.095 | 0.980 |
 | popularity baseline | 0.144 | 0.085 | 0.153 |
+| two-stage (SVD + item-item + HGB) | (run `evaluate`) | (run `evaluate`) | > 0.8 (pytest) |
 
-MRR@10 is printed in the CLI JSON (`two_stage.mrr` / `popularity.mrr`). It is omitted from the table on purpose: this README does not invent a number that CI does not pin.
-
-The interesting gap is coverage: popularity collapses to the head of the catalog; the two-stage list still hits almost every restaurant for someone. The ranking lift is real and modest, which is what this generator deserves.
+MRR@10 is in the CLI JSON (`two_stage.mrr` / `popularity.mrr`). No invented NDCG cell.
 
 Re-run:
 
@@ -149,6 +149,6 @@ tests/           leakage, cold start, metrics, ranking order, retrieval, API con
 - The "two-tower" is matrix factorization (TruncatedSVD + dot product), not trained embeddings with in-batch negatives. Calling it a deep two-tower would be a lie.
 - No session features, no time-of-day, no friend graph, no geo-fence beyond neighborhood distance.
 - Pointwise logistic boosting, not listwise LambdaMART.
-- Offline ranking metrics on synthetic labels. No A/B test, no logged policy.
+- Offline ranking metrics on synthetic labels. No A/B test, no logged policy. Two-stage NDCG is not a stable win over popularity here.
 
 MIT. Original work, 2026.
