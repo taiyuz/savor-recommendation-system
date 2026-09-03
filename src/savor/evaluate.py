@@ -7,9 +7,17 @@ from dataclasses import dataclass
 import polars as pl
 
 from savor.config import DEFAULT_K, POSITIVE_EVENTS, SPLIT_CUTOFF
+from savor.data.cold_start import cold_item_ids
 from savor.data.loader import Catalog, load_catalog
 from savor.data.splits import temporal_split
-from savor.metrics import coverage_at_k, mrr_at_k, ndcg_at_k, recall_at_k
+from savor.metrics import (
+    cold_item_coverage_at_k,
+    cold_label_fraction,
+    coverage_at_k,
+    mrr_at_k,
+    ndcg_at_k,
+    recall_at_k,
+)
 from savor.pipeline import Recommender, ScoredItem
 
 
@@ -26,6 +34,10 @@ class EvalReport:
     popularity_ndcg: float
     popularity_mrr: float
     popularity_coverage: float
+    n_cold_items: int
+    cold_label_fraction: float
+    cold_item_coverage: float
+    popularity_cold_item_coverage: float
 
     def as_table_rows(self) -> list[tuple[str, str, str, str]]:
         return [
@@ -80,6 +92,7 @@ def evaluate(
     labels = held_out_positives(train.interactions, valid.interactions)
     train_users = set(recommender.generator.history)
     eval_users = sorted(uid for uid in labels if uid in train_users and labels[uid])
+    cold = cold_item_ids(train.item_ids(), train.interactions)
 
     recs: dict[str, list[str]] = {}
     pop_recs: dict[str, list[str]] = {}
@@ -117,6 +130,10 @@ def evaluate(
         popularity_ndcg=sum(pop_ndcgs) / n if eval_users else 0.0,
         popularity_mrr=sum(pop_mrrs) / n if eval_users else 0.0,
         popularity_coverage=coverage_at_k(pop_recs, n_items, k),
+        n_cold_items=len(cold),
+        cold_label_fraction=cold_label_fraction(labels, cold),
+        cold_item_coverage=cold_item_coverage_at_k(recs, cold, k),
+        popularity_cold_item_coverage=cold_item_coverage_at_k(pop_recs, cold, k),
     )
 
 

@@ -49,3 +49,33 @@ def coverage_at_k(recommendations: dict[str, list[str]], catalog_size: int, k: i
         return 0.0
     recommended = {item_id for ranked in recommendations.values() for item_id in ranked[:k]}
     return len(recommended) / catalog_size
+
+
+def cold_item_coverage_at_k(
+    recommendations: dict[str, list[str]],
+    cold_items: set[str],
+    k: int,
+) -> float:
+    """Fraction of train-cold catalog items that appear in any top-k list.
+
+    This is a diagnostic, not a quality score: collaborative retrieval has no
+    train support for these ids. 0.0 means none were shown. A popularity pad
+    of zero-score rows can still surface them; a leaked valid slice would give
+    them real CF/popularity support and they would show up for the wrong reason.
+    """
+    if not cold_items or k <= 0:
+        return 0.0
+    shown = {item_id for ranked in recommendations.values() for item_id in ranked[:k]}
+    return len(shown & cold_items) / len(cold_items)
+
+
+def cold_label_fraction(labels: dict[str, set[str]], cold_items: set[str]) -> float:
+    """Fraction of held-out positive items that have zero train support.
+
+    Keeping these labels is what makes recall honest. Filtering them out (because
+    CF cannot retrieve them) quietly inflates the metric.
+    """
+    positives = {item_id for items in labels.values() for item_id in items}
+    if not positives:
+        return 0.0
+    return len(positives & cold_items) / len(positives)

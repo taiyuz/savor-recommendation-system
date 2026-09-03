@@ -59,6 +59,12 @@ def _print_eval(k: int) -> int:
             "mrr": round(report.popularity_mrr, 4),
             "coverage": round(report.popularity_coverage, 4),
         },
+        "item_cold_start": {
+            "n_cold_items": report.n_cold_items,
+            "label_fraction": round(report.cold_label_fraction, 4),
+            "two_stage_shown_coverage": round(report.cold_item_coverage, 4),
+            "popularity_shown_coverage": round(report.popularity_cold_item_coverage, 4),
+        },
     }
     print(json.dumps(payload, indent=2))
     return 0
