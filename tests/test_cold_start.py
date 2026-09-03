@@ -79,8 +79,8 @@ def test_train_cold_items_have_zero_popularity_on_sample(
     for item_id in cold:
         assert scores.get(item_id, 0.0) == 0.0
     warm_user = next(uid for uid, items in gen.history.items() if items)
+    n_items = len(gen.item_item.item_ids)
     neighbors = {
-        item_id
-        for item_id, _score in gen.item_item.top(warm_user, k=len(gen.item_ids), exclude=set())
+        item_id for item_id, _score in gen.item_item.top(warm_user, k=n_items, exclude=set())
     }
     assert neighbors.isdisjoint(cold)
