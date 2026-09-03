@@ -65,6 +65,10 @@ def test_sample_eval_table_coverage_gap(train_catalog: Catalog, valid_catalog: C
     assert 0.0 <= report.ndcg <= 1.0
     assert 0.0 < report.mrr <= 1.0
     assert 0.0 <= report.popularity_mrr <= 1.0
+    assert report.n_cold_items >= 2
+    assert 0.0 <= report.cold_label_fraction <= 1.0
+    assert 0.0 <= report.cold_item_coverage <= 1.0
+    assert 0.0 <= report.popularity_cold_item_coverage <= 1.0
     rows = report.as_table_rows()
     assert rows[0][0].startswith("two-stage")
     assert rows[1][0].startswith("popularity")

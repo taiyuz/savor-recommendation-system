@@ -1,6 +1,13 @@
 from __future__ import annotations
 
-from savor.metrics import coverage_at_k, mrr_at_k, ndcg_at_k, recall_at_k
+from savor.metrics import (
+    cold_item_coverage_at_k,
+    cold_label_fraction,
+    coverage_at_k,
+    mrr_at_k,
+    ndcg_at_k,
+    recall_at_k,
+)
 
 
 def test_recall_at_k_hand_computed() -> None:
@@ -59,3 +66,22 @@ def test_mrr_at_k_empty_and_nonpositive_k() -> None:
 def test_coverage_at_k() -> None:
     recs = {"u1": ["a", "b"], "u2": ["b", "c"]}
     assert coverage_at_k(recs, catalog_size=4, k=2) == 0.75
+
+
+def test_cold_item_coverage_at_k_hand_computed() -> None:
+    recs = {"u1": ["warm_a", "cold_x"], "u2": ["warm_b", "warm_a"]}
+    cold = {"cold_x", "cold_y"}
+    # Only cold_x is shown. Dividing by catalog size (coverage@k) would be 0.25 here.
+    assert cold_item_coverage_at_k(recs, cold, k=2) == 0.5
+    assert cold_item_coverage_at_k(recs, cold, k=1) == 0.0
+    assert cold_item_coverage_at_k(recs, set(), k=2) == 0.0
+    assert cold_item_coverage_at_k(recs, cold, k=0) == 0.0
+
+
+def test_cold_label_fraction_counts_unretrievable_positives() -> None:
+    labels = {"u1": {"i_new", "i_warm"}, "u2": {"i_warm"}}
+    cold = {"i_new", "i_ghost"}
+    # Two unique positives, one of them train-cold.
+    assert cold_label_fraction(labels, cold) == 0.5
+    assert cold_label_fraction({}, cold) == 0.0
+    assert cold_label_fraction(labels, set()) == 0.0
